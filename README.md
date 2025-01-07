@@ -1,3 +1,4 @@
+# Импорт инструментов
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
@@ -45,7 +46,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    await update.message.reply_text(
+await update.message.reply_text(
         "привет! я ботик для вдохновляющих цитаток. меня сделали криво, поэтому работаю я тоже криво\n\nнажми на кнопку ниже, чтобы получить одну:",
         reply_markup=reply_markup
     )
@@ -55,19 +56,19 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     query = update.callback_query
     await query.answer()
 
-    if query.data == "get_quote":
+if query.data == "get_quote":
         # выбираем случайную цитату
         from random import choice
         quote = choice(quotes)
 
-        # создаем кнопку заново
-        keyboard = [
+# создаем кнопку заново
+keyboard = [
             [InlineKeyboardButton("получить ещё цитатку", callback_data="get_quote")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        # отправляем сообщение с новой цитатой и кнопкой
-        await query.edit_message_text(
+# отправляем сообщение с новой цитатой и кнопкой
+await query.edit_message_text(
             text=f"вот твоя цитатка:\n\n\"{quote}\"",
             reply_markup=reply_markup
         )
@@ -78,15 +79,15 @@ def main():
     # токен, который ты получил у BotFather
     token = "тут мой токен на бота"
 
-    # создаем приложение
-    app = Application.builder().token(token).build()
+# создаем приложение
+app = Application.builder().token(token).build()
 
-    # добавляем обработчики
-    app.add_handler(CommandHandler("start", start))
+# добавляем обработчики
+app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    # запускаем бота
-    app.run_polling()
+# запускаем бота
+app.run_polling()
 
 if __name__ == "__main__":
     main()
