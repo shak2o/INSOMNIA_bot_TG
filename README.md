@@ -1,3 +1,4 @@
+@DREamSTate_Bot - сам бот
 # Импорт инструментов
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
