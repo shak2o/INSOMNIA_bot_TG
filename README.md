@@ -1,10 +1,10 @@
 @DREamSTate_Bot - сам бот
-![preview](изображение_2025-06-25_152746431.png) 
+
 
 # Импорт инструментов
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
-
+![preview](изображение_2025-06-25_152746431.png) 
 ## список цитат
 quotes = [
     "В этом изменчивом мире следует идти по пути самодисциплины.",
