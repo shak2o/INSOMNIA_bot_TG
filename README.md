@@ -3,7 +3,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
-# список цитат
+## список цитат
 quotes = [
     "В этом изменчивом мире следует идти по пути самодисциплины.",
     "Даже если у человека нет особых талантов, но он упорно овладевает знанием, он не опозорится перед другими.",
@@ -40,7 +40,9 @@ quotes = [
     "На что только не согласится человек, ради еще одного интересного воспоминания"
 ]
 
-# обработчик команды /start
+---
+
+## обработчик команды /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
         [InlineKeyboardButton("получить цитатку", callback_data="get_quote")]
@@ -51,8 +53,9 @@ await update.message.reply_text(
         "привет! я ботик для вдохновляющих цитаток. меня сделали криво, поэтому работаю я тоже криво\n\nнажми на кнопку ниже, чтобы получить одну:",
         reply_markup=reply_markup
     )
+---
 
-# обработчик нажатий кнопок
+## обработчик нажатий кнопок
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
@@ -61,33 +64,38 @@ if query.data == "get_quote":
         # выбираем случайную цитату
         from random import choice
         quote = choice(quotes)
+---
 
-# создаем кнопку заново
+## создаем кнопку заново
 keyboard = [
             [InlineKeyboardButton("получить ещё цитатку", callback_data="get_quote")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
+---
 
-# отправляем сообщение с новой цитатой и кнопкой
+## отправляем сообщение с новой цитатой и кнопкой
 await query.edit_message_text(
             text=f"вот твоя цитатка:\n\n\"{quote}\"",
             reply_markup=reply_markup
         )
+---
 
-
-# основная функция
+## основная функция
 def main():
     # токен, который ты получил у BotFather
     token = "тут мой токен на бота"
+---
 
-# создаем приложение
+## создаем приложение
 app = Application.builder().token(token).build()
 
-# добавляем обработчики
+---
+
+## добавляем обработчики
 app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
-
-# запускаем бота
+---
+## запускаем бота
 app.run_polling()
 
 if __name__ == "__main__":
